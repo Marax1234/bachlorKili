@@ -1,8 +1,8 @@
 # Project-level latexmkrc for Bachelorarbeit
 # Overrides /etc/LatexMk for this project
 
-# Use pdflatex
-$pdf_mode = 1;
+# Use lualatex
+$pdf_mode = 4;
 $postscript_mode = 0;
 $dvi_mode = 0;
 

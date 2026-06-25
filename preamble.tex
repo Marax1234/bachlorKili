@@ -1,7 +1,7 @@
 % !TEX root = main.tex
 % ========================================
-% Preamble — Studienarbeit Max Hiller
-% DHBW Stuttgart — Informatik
+% Preamble — Bachelorarbeit Kilian Siebert
+% KSH München, Campus Benediktbeuern — Soziale Arbeit
 % ========================================
 
 \documentclass[
@@ -10,33 +10,38 @@
     oneside,
     parskip=half,
     headsepline,
-    english
+    ngerman
 ]{scrreprt}
 
 % ========================================
 % PACKAGES
 % ========================================
 
-% Language and encoding
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage[english]{babel}
+% Language (LuaLaTeX: no fontenc/inputenc needed)
+\usepackage[ngerman]{babel}
 \usepackage{csquotes}
+
+% Font (Carlito = metrisch kompatibel mit Calibri)
+\usepackage{fontspec}
+\setmainfont{Carlito}[
+  BoldFont = Carlito Bold,
+  ItalicFont = Carlito Italic,
+  BoldItalicFont = Carlito Bold Italic
+]
+\setsansfont{Carlito}
+\setmonofont{TeX Gyre Cursor}[Scale=MatchLowercase]
 
 % KOMA-Script compatibility patches (must load before float, listings, etc.)
 \usepackage{scrhack}
 
 % Page layout
-\usepackage[left=3cm, right=2.5cm, top=2.5cm, bottom=2.5cm]{geometry}
+\usepackage[left=3cm, right=2cm, top=2.5cm, bottom=2.5cm]{geometry}
 \usepackage{setspace}
 \onehalfspacing
 
 % Widow/orphan control
 \widowpenalty=10000
 \clubpenalty=10000
-
-% Allow extra inter-word stretch to reduce overfull hboxes
-\emergencystretch=3em
 
 % Graphics and figures
 \usepackage{graphicx}
@@ -60,25 +65,11 @@
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
 \usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc}
-\usepackage{pgf-umlsd}
 
 % Code listings
 \usepackage{listings}
 \usepackage{xcolor}
-\lstdefinelanguage{JavaScript}{
-    keywords={break, case, catch, continue, debugger, default, delete, do, else,
-        false, finally, for, function, if, in, instanceof, new, null, return,
-        switch, this, throw, true, try, typeof, var, void, while, with, let,
-        const, async, await, of, yield, export, import, from, class, extends,
-        super, static},
-    morecomment=[l]{//},
-    morecomment=[s]{/*}{*/},
-    morestring=[b]',
-    morestring=[b]",
-    morestring=[b]`,
-    sensitive=true,
-}
-% Modern, eye-friendly color palette for code listings
+
 \definecolor{codeBackground}{rgb}{0.96,0.96,0.94}
 \definecolor{codeComment}{rgb}{0.25,0.50,0.35}
 \definecolor{codeKeyword}{rgb}{0.18,0.39,0.77}
@@ -107,15 +98,17 @@
 }
 \lstset{style=modernStyle}
 
-% Bibliography (biblatex + biber, IEEE numeric style)
+% Bibliography (biblatex + biber, authoryear style for KSH)
 \usepackage[
-    style=ieee,
+    style=authoryear,
     backend=biber,
-    sorting=none,
-    maxbibnames=99
+    sorting=nyt,
+    maxbibnames=99,
+    giveninits=false,
+    uniquename=full,
+    dashed=false
 ]{biblatex}
 \addbibresource{bibliography.bib}
-% Allow long URLs in bibliography to break
 \setcounter{biburlnumpenalty}{100}
 \setcounter{biburlucpenalty}{100}
 \setcounter{biburllcpenalty}{100}
@@ -124,7 +117,7 @@
 \PassOptionsToPackage{hyphens}{url}
 \usepackage[hidelinks]{hyperref}
 \usepackage{url}
-\usepackage[nameinlink]{cleveref}
+\usepackage[nameinlink, ngerman]{cleveref}
 
 % List of abbreviations
 \usepackage[acronym, nonumberlist, toc]{glossaries}
@@ -149,16 +142,24 @@
 \captionsetup[table]{position=top}
 \captionsetup[figure]{position=bottom}
 
-% Section numbering depth
-\setcounter{secnumdepth}{3}
-\setcounter{tocdepth}{3}
+% Section numbering depth: max 3 levels (chapter.section.subsection = 1.2.2)
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+
+% Footnotes: uniform 12pt size
+\deffootnote[1em]{1em}{1em}{\textsuperscript{\thefootnotemark}\,}
+\setkomafont{footnote}{\normalsize}
 
 % Headers and footers
 \pagestyle{scrheadings}
 \clearpairofpagestyles
 \ohead{\thepage}
+\cfoot[\thepage]{}  % Seitenzahl auf plain-Seiten (Kapitelanfang) unten mittig
 \ihead{\headmark}
 \automark[section]{chapter}
+
+% Source command for figures/tables
+\newcommand{\source}[1]{\vspace{-0.5em}\par\footnotesize Quelle: #1}
 
 % ========================================
 % ABBREVIATIONS
@@ -171,18 +172,11 @@
 % DOCUMENT INFORMATION
 % ========================================
 
-\newcommand{\thesistitle}{%
-    Sentiment-Driven Market Analysis:\\%
-    Design and Evaluation of an LLM-Based\\%
-    Multi-Source Data Pipeline%
-}
-\newcommand{\thesisauthor}{Max Hiller}
-\newcommand{\matriculationnumber}{8876520}
-\newcommand{\submissiondate}{\today}
-\newcommand{\supervisorone}{Dr. Marvin Haug}
-\newcommand{\supervisortwo}{}
-\newcommand{\university}{DHBW Stuttgart}
-\newcommand{\faculty}{Fakultät Technik}
-\newcommand{\degree}{Bachelor of Science}
-\newcommand{\program}{Informatik}
-\newcommand{\courseofstudies}{TINF 23F}
+\newcommand{\thesistitle}{Platzhalter-Titel der Bachelorarbeit}
+\newcommand{\thesisauthor}{Kilian Siebert}
+\newcommand{\submissiondate}{Platzhalter}
+\newcommand{\supervisorone}{Platzhalter}
+\newcommand{\university}{Katholische Stiftungshochschule München}
+\newcommand{\campus}{Campus Benediktbeuern}
+\newcommand{\degree}{Bachelor of Arts}
+\newcommand{\program}{Soziale Arbeit}

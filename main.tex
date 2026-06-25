@@ -1,6 +1,7 @@
 % ========================================
-% Studienarbeit — Max Hiller
-% DHBW Stuttgart — Informatik
+% Bachelorarbeit — Kilian Siebert
+% KSH München, Campus Benediktbeuern
+% Soziale Arbeit
 % ========================================
 
 \input{preamble}
@@ -13,42 +14,57 @@
 
 \pagenumbering{roman}
 
+% 1. Titelblatt
 \input{chapters/00_titlepage}
-\input{chapters/09_declaration}
-\input{chapters/01_abstract}
 
+% 2. Summary (Zusammenfassung)
+\input{chapters/01_summary}
+
+% 3. Vorwort (optional)
+\input{chapters/02_vorwort}
+
+% 4. Inhaltsverzeichnis
 \tableofcontents
 \newpage
 
-\printglossary[type=\acronymtype, title={List of Abbreviations}]
-\newpage
-
+% 5. Abbildungsverzeichnis
 \listoffigures
 \newpage
 
+% 6. Tabellenverzeichnis
 \listoftables
 \newpage
 
+% 7. Abkürzungsverzeichnis
+\printglossary[type=\acronymtype, title={Abkürzungsverzeichnis}]
+\newpage
+
 % ========================================
-% MAIN MATTER
+% MAIN MATTER (Textteil)
 % ========================================
 
 \pagenumbering{arabic}
 
-\input{chapters/02_introduction}
-\input{chapters/03_background}
-\input{chapters/04_architecture}
-\input{chapters/05_implementation}
-\input{chapters/06_api_frontend}
-\input{chapters/07_evaluation}
-\input{chapters/08_conclusion}
+\input{chapters/03_einleitung}
+\input{chapters/04_hauptteil}
+\input{chapters/05_fazit}
 
 % ========================================
 % BACK MATTER
 % ========================================
 
+% 9. Literaturverzeichnis
 \newpage
-\addcontentsline{toc}{chapter}{References}
-\printbibliography
+\printbibliography[title={Literaturverzeichnis}]
+\addcontentsline{toc}{chapter}{Literaturverzeichnis}
+
+% 10. Anhang
+\clearpage
+\pagenumbering{Roman}
+\appendix
+\input{chapters/06_anhang}
+
+% 11. Ehrenwörtliche Erklärung (am Ende)
+\input{chapters/07_erklaerung}
 
 \end{document}

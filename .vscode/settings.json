@@ -1,7 +1,7 @@
 {
     // ====================================
     // VS Code Settings für LaTeX
-    // Max Hiller - Bachelorarbeit
+    // Kilian Siebert - Bachelorarbeit (KSH)
     // ====================================
 
     // LaTeX Workshop - Haupt-Extension
@@ -9,35 +9,35 @@
     "latex-workshop.view.pdf.viewer": "tab",
     "latex-workshop.view.pdf.internal.synctex.keybinding": "double-click",
 
-    // Always use main.tex as root — never compile sub-files or preamble.tex directly
+    // Always use main.tex as root
     "latex-workshop.latex.rootFile.doNotPrompt": true,
     "latex-workshop.latex.rootFile.useSubFile": false,
 
-    // Build-Rezepte (biblatex uses biber, not bibtex)
+    // Build-Rezepte (LuaLaTeX + biber + makeglossaries)
     "latex-workshop.latex.recipes": [
         {
-            "name": "pdflatex → biber → makeglossaries → pdflatex × 2",
+            "name": "lualatex → biber → makeglossaries → lualatex × 2",
             "tools": [
-                "pdflatex",
+                "lualatex",
                 "biber",
                 "makeglossaries",
-                "pdflatex",
-                "pdflatex"
+                "lualatex",
+                "lualatex"
             ]
         },
         {
-            "name": "pdflatex → biber → pdflatex × 2",
+            "name": "lualatex → biber → lualatex × 2",
             "tools": [
-                "pdflatex",
+                "lualatex",
                 "biber",
-                "pdflatex",
-                "pdflatex"
+                "lualatex",
+                "lualatex"
             ]
         },
         {
-            "name": "pdflatex (schnell)",
+            "name": "lualatex (schnell)",
             "tools": [
-                "pdflatex"
+                "lualatex"
             ]
         }
     ],
@@ -45,8 +45,8 @@
     // Tools-Definition
     "latex-workshop.latex.tools": [
         {
-            "name": "pdflatex",
-            "command": "pdflatex",
+            "name": "lualatex",
+            "command": "lualatex",
             "args": [
                 "-synctex=1",
                 "-interaction=nonstopmode",
@@ -92,10 +92,10 @@
         "*.nav"
     ],
 
-    // Aufräumen nur bei Fehler (NICHT nach erfolgreichem Build!)
+    // Aufräumen nur bei Fehler
     "latex-workshop.latex.autoClean.run": "onFailed",
 
-    // SyncTeX - Zwischen Code und PDF springen
+    // SyncTeX
     "latex-workshop.synctex.afterBuild.enabled": true,
 
     // Editor-Einstellungen für LaTeX
