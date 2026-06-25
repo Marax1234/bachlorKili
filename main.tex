@@ -1,0 +1,54 @@
+% ========================================
+% Studienarbeit — Max Hiller
+% DHBW Stuttgart — Informatik
+% ========================================
+
+\input{preamble}
+
+\begin{document}
+
+% ========================================
+% FRONT MATTER
+% ========================================
+
+\pagenumbering{roman}
+
+\input{chapters/00_titlepage}
+\input{chapters/09_declaration}
+\input{chapters/01_abstract}
+
+\tableofcontents
+\newpage
+
+\printglossary[type=\acronymtype, title={List of Abbreviations}]
+\newpage
+
+\listoffigures
+\newpage
+
+\listoftables
+\newpage
+
+% ========================================
+% MAIN MATTER
+% ========================================
+
+\pagenumbering{arabic}
+
+\input{chapters/02_introduction}
+\input{chapters/03_background}
+\input{chapters/04_architecture}
+\input{chapters/05_implementation}
+\input{chapters/06_api_frontend}
+\input{chapters/07_evaluation}
+\input{chapters/08_conclusion}
+
+% ========================================
+% BACK MATTER
+% ========================================
+
+\newpage
+\addcontentsline{toc}{chapter}{References}
+\printbibliography
+
+\end{document}

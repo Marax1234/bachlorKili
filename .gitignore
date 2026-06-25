@@ -1,0 +1,30 @@
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.glg
+*.glo
+*.gls
+*.ist
+*.lof
+*.log
+*.lot
+*.out
+*.synctex.gz
+*.toc
+*.acn
+*.acr
+*.alg
+*.glsdefs
+*.bcf
+*.run.xml
+
+# Keep the PDF
+!main.pdf
+
+# Logos (binary files, not versioned)
+/logos
+
+chapter_pdfs/

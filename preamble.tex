@@ -1,0 +1,188 @@
+% !TEX root = main.tex
+% ========================================
+% Preamble — Studienarbeit Max Hiller
+% DHBW Stuttgart — Informatik
+% ========================================
+
+\documentclass[
+    12pt,
+    a4paper,
+    oneside,
+    parskip=half,
+    headsepline,
+    english
+]{scrreprt}
+
+% ========================================
+% PACKAGES
+% ========================================
+
+% Language and encoding
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{csquotes}
+
+% KOMA-Script compatibility patches (must load before float, listings, etc.)
+\usepackage{scrhack}
+
+% Page layout
+\usepackage[left=3cm, right=2.5cm, top=2.5cm, bottom=2.5cm]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+
+% Widow/orphan control
+\widowpenalty=10000
+\clubpenalty=10000
+
+% Allow extra inter-word stretch to reduce overfull hboxes
+\emergencystretch=3em
+
+% Graphics and figures
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+
+% Tables
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{array}
+
+% Math and symbols
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+% Diagrams and plots
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc}
+\usepackage{pgf-umlsd}
+
+% Code listings
+\usepackage{listings}
+\usepackage{xcolor}
+\lstdefinelanguage{JavaScript}{
+    keywords={break, case, catch, continue, debugger, default, delete, do, else,
+        false, finally, for, function, if, in, instanceof, new, null, return,
+        switch, this, throw, true, try, typeof, var, void, while, with, let,
+        const, async, await, of, yield, export, import, from, class, extends,
+        super, static},
+    morecomment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    morestring=[b]',
+    morestring=[b]",
+    morestring=[b]`,
+    sensitive=true,
+}
+% Modern, eye-friendly color palette for code listings
+\definecolor{codeBackground}{rgb}{0.96,0.96,0.94}
+\definecolor{codeComment}{rgb}{0.25,0.50,0.35}
+\definecolor{codeKeyword}{rgb}{0.18,0.39,0.77}
+\definecolor{codeString}{rgb}{0.80,0.33,0.0}
+\definecolor{codeNumber}{rgb}{0.5,0.5,0.5}
+
+\lstdefinestyle{modernStyle}{
+    backgroundcolor=\color{codeBackground},
+    commentstyle=\color{codeComment}\itshape,
+    keywordstyle=\color{codeKeyword}\bfseries,
+    stringstyle=\color{codeString},
+    numberstyle=\tiny\color{codeNumber},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=10pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    frame=single,
+    rulecolor=\color{black!15}
+}
+\lstset{style=modernStyle}
+
+% Bibliography (biblatex + biber, IEEE numeric style)
+\usepackage[
+    style=ieee,
+    backend=biber,
+    sorting=none,
+    maxbibnames=99
+]{biblatex}
+\addbibresource{bibliography.bib}
+% Allow long URLs in bibliography to break
+\setcounter{biburlnumpenalty}{100}
+\setcounter{biburlucpenalty}{100}
+\setcounter{biburllcpenalty}{100}
+
+% Hyperlinks and cross-references
+\PassOptionsToPackage{hyphens}{url}
+\usepackage[hidelinks]{hyperref}
+\usepackage{url}
+\usepackage[nameinlink]{cleveref}
+
+% List of abbreviations
+\usepackage[acronym, nonumberlist, toc]{glossaries}
+
+% Headers and footers (KOMA-Script)
+\usepackage{scrlayer-scrpage}
+
+% Additional packages
+\usepackage{enumitem}
+
+% ========================================
+% SETTINGS
+% ========================================
+
+% Independent (non-chapter-prefixed) numbering for floats and listings
+\counterwithout{figure}{chapter}
+\counterwithout{table}{chapter}
+\AtBeginDocument{\counterwithout{lstlisting}{chapter}}
+
+% Figure and table captions
+\captionsetup{font=small, labelfont=bf, format=plain}
+\captionsetup[table]{position=top}
+\captionsetup[figure]{position=bottom}
+
+% Section numbering depth
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+% Headers and footers
+\pagestyle{scrheadings}
+\clearpairofpagestyles
+\ohead{\thepage}
+\ihead{\headmark}
+\automark[section]{chapter}
+
+% ========================================
+% ABBREVIATIONS
+% ========================================
+
+\makeglossaries
+\input{acronyms}
+
+% ========================================
+% DOCUMENT INFORMATION
+% ========================================
+
+\newcommand{\thesistitle}{%
+    Sentiment-Driven Market Analysis:\\%
+    Design and Evaluation of an LLM-Based\\%
+    Multi-Source Data Pipeline%
+}
+\newcommand{\thesisauthor}{Max Hiller}
+\newcommand{\matriculationnumber}{8876520}
+\newcommand{\submissiondate}{\today}
+\newcommand{\supervisorone}{Dr. Marvin Haug}
+\newcommand{\supervisortwo}{}
+\newcommand{\university}{DHBW Stuttgart}
+\newcommand{\faculty}{Fakultät Technik}
+\newcommand{\degree}{Bachelor of Science}
+\newcommand{\program}{Informatik}
+\newcommand{\courseofstudies}{TINF 23F}
