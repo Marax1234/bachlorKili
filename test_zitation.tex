@@ -1,0 +1,37 @@
+% Testdokument: Kompiliert alle KSH-Beispielzitationen
+% Kompilieren mit: latexmk -lualatex test_zitation.tex
+\input{preamble}
+
+% Zusätzliche Bib-Ressource für Testeinträge
+\addbibresource{test_bibliography.bib}
+
+\begin{document}
+\pagenumbering{arabic}
+
+\chapter{Test aller KSH-Zitationsformate}
+
+Alle folgenden Einträge werden per \verb|\nocite{*}| ins Literaturverzeichnis aufgenommen.
+
+\nocite{*}
+
+\section{Zitationsbeispiele im Text}
+
+\subsection{Indirektes Zitat (ein Autor)}
+Text text text \parencite[vgl.][26]{kessl2010}.
+
+\subsection{Direktes Zitat}
+\enquote{Wörtliches Zitat hier} \parencite[26]{kessl2010}.
+
+\subsection{Autor im Fließtext}
+Wie \textcite[42]{lenk1996} betont, ist kreatives Interpretieren zentral.
+
+\subsection{Mehrere Seiten}
+Vgl. dazu die Ausführungen \parencite[vgl.][26\psqq]{kessl2010}.
+
+\subsection{Gesetzestext (kein Bib-Eintrag nötig)}
+Die Regelung findet sich in § 23 Abs. 1 SGB V.
+
+\newpage
+\printbibliography[title={Literaturverzeichnis}]
+
+\end{document}

@@ -98,7 +98,7 @@
 }
 \lstset{style=modernStyle}
 
-% Bibliography (biblatex + biber, authoryear style for KSH)
+% Bibliography (biblatex + biber, KSH-Stil)
 \usepackage[
     style=authoryear,
     backend=biber,
@@ -109,9 +109,131 @@
     dashed=false
 ]{biblatex}
 \addbibresource{bibliography.bib}
+\addbibresource{test_bibliography.bib}
 \setcounter{biburlnumpenalty}{100}
 \setcounter{biburlucpenalty}{100}
 \setcounter{biburllcpenalty}{100}
+
+% --- KSH-Anpassungen: Name, Vorname (Jahr): Titel, Auflage, Ort, Verlag. ---
+
+% Doppelpunkt nach dem Jahr statt Punkt
+\renewcommand{\labelnamepunct}{\addcolon\space}
+
+% Alle Autoren/Editoren im Format "Name, Vorname" (auch 2./3. Autor)
+\DeclareNameAlias{sortname}{family-given}
+\DeclareNameAlias{default}{family-given}
+
+% Titel ohne Anführungszeichen/Kursiv (für alle Typen)
+\DeclareFieldFormat*{title}{#1}
+\DeclareFieldFormat*{booktitle}{#1}
+\DeclareFieldFormat*{journaltitle}{#1}
+\DeclareFieldFormat*{citetitle}{#1}
+
+% Auflage: Zahl → "X. Auflage"; Freitext → direkt ausgeben
+\DeclareFieldFormat{edition}{%
+  \ifinteger{#1}
+    {#1\adddot\space Auflage}
+    {#1}}
+
+% Trennzeichen im Biblio-Eintrag: Komma statt Punkt
+\renewcommand{\newunitpunct}{\addcomma\space}
+
+% Semikolon zwischen mehreren Autoren/Editoren
+\renewcommand{\multinamedelim}{\addsemicolon\space}
+\renewcommand{\finalnamedelim}{\addsemicolon\space}
+
+% Strings
+\DefineBibliographyStrings{ngerman}{%
+  in       = {In},
+  urlseen  = {zuletzt geprüft am},
+  editor   = {Hrsg\adddot},
+  editors  = {Hrsg\adddot},
+}
+
+% "In:" mit Doppelpunkt; Punkt vor "In:" statt Komma
+\renewcommand{\intitlepunct}{\addcolon\space}
+\renewbibmacro*{in:}{%
+  \setunit{\adddot\space}%
+  \printtext{In}%
+  \intitlepunct
+}
+
+% Seitenangaben ohne "S."
+\DeclareFieldFormat{pages}{#1}
+
+% Volume/Number für Zeitschriften: "Zeitschrift, 50 (4), Seiten"
+\DeclareFieldFormat[article]{volume}{#1}
+\DeclareFieldFormat[article]{number}{\mkbibparens{#1}}
+\renewbibmacro*{volume+number+eid}{%
+  \printfield{volume}%
+  \setunit*{\addnbspace}%
+  \printfield{number}%
+  \setunit{\addcomma\space}%
+  \printfield{eid}%
+}
+% Komma zwischen Zeitschriftenname und Volume (statt Leerzeichen)
+\renewbibmacro*{journal+issuetitle}{%
+  \usebibmacro{journal}%
+  \setunit*{\addcomma\space}%
+  \usebibmacro{volume+number+eid}%
+  \newunit
+}
+
+% Ort, Verlag (Komma statt Doppelpunkt), kein Datum (steht im Label)
+\renewbibmacro*{publisher+location+date}{%
+  \printlist{location}%
+  \iflistundef{publisher}
+    {}
+    {\setunit*{\addcomma\space}\printlist{publisher}}%
+  \newunit
+}
+
+% Datum: nur Jahr im Label, Tag/Monat unterdrücken
+\AtEveryBibitem{%
+  \clearfield{day}%
+  \clearfield{month}%
+  \clearfield{endday}%
+  \clearfield{endmonth}%
+}
+
+% URLs in Normalschrift (sans Mono) setzen
+\urlstyle{same}
+
+% URL + Zugriffsdatum: "URL: http://... (zuletzt geprüft am DD.MM.YYYY)"
+\DeclareFieldFormat{url}{URL\addcolon\space\url{#1}}
+\renewbibmacro*{url+urldate}{%
+  \printfield{url}%
+  \iffieldundef{urlyear}
+    {}
+    {\setunit*{\addspace}%
+     \printtext{\mkbibparens{zuletzt geprüft am\addspace
+       \iffieldundef{urlday}
+         {\thefield{urlyear}}
+         {\ifnumless{\thefield{urlday}}{10}{0}{}\thefield{urlday}.%
+          \ifnumless{\thefield{urlmonth}}{10}{0}{}\thefield{urlmonth}.%
+          \thefield{urlyear}}%
+     }}}%
+  \newunit
+}
+
+% Editor-String in Klammern: "Name, Vorname (Hrsg.)" statt "Name, Vorname, Hrsg."
+\DeclareDelimFormat{editortypedelim}{\addspace}
+\DeclareFieldFormat{editortype}{\mkbibparens{#1}}
+
+% byeditor+others: leer (Editor wird im maintitle+booktitle-Makro behandelt)
+\renewbibmacro*{byeditor+others}{}
+
+% KSH incollection: "In: Editor (Hrsg.): Buchtitel" statt "In: Buchtitel. Editor"
+\renewbibmacro*{maintitle+booktitle}{%
+  \ifnameundef{editor}
+    {}
+    {\printnames{editor}%
+     \setunit*{\addspace}%
+     \printtext{\mkbibparens{\bibstring{editor}}}%
+     \setunit{\addcolon\space}}%
+  \usebibmacro{booktitle}%
+  \newunit
+}
 
 % Hyperlinks and cross-references
 \PassOptionsToPackage{hyphens}{url}
@@ -137,10 +259,18 @@
 \counterwithout{table}{chapter}
 \AtBeginDocument{\counterwithout{lstlisting}{chapter}}
 
-% Figure and table captions
-\captionsetup{font=small, labelfont=bf, format=plain}
-\captionsetup[table]{position=top}
-\captionsetup[figure]{position=bottom}
+% Figure and table captions — KSH-konform
+\captionsetup{
+  font=small,
+  labelfont=bf,
+  labelsep=colon,
+  format=plain,
+  justification=justified,
+  singlelinecheck=false,
+  skip=6pt
+}
+\captionsetup[table]{position=top, belowskip=4pt}
+\captionsetup[figure]{position=bottom, aboveskip=8pt}
 
 % Section numbering depth: max 3 levels (chapter.section.subsection = 1.2.2)
 \setcounter{secnumdepth}{2}
@@ -158,8 +288,11 @@
 \ihead{\headmark}
 \automark[section]{chapter}
 
-% Source command for figures/tables
-\newcommand{\source}[1]{\vspace{-0.5em}\par\footnotesize Quelle: #1}
+% Quellenangabe unter Abbildungen/Tabellen
+\newcommand{\source}[1]{%
+  \par\vspace{4pt}%
+  {\small\textit{Quelle:} #1}%
+}
 
 % ========================================
 % ABBREVIATIONS
@@ -176,6 +309,7 @@
 \newcommand{\thesisauthor}{Kilian Siebert}
 \newcommand{\submissiondate}{Platzhalter}
 \newcommand{\supervisorone}{Platzhalter}
+\newcommand{\supervisortwo}{Platzhalter}
 \newcommand{\university}{Katholische Stiftungshochschule München}
 \newcommand{\campus}{Campus Benediktbeuern}
 \newcommand{\degree}{Bachelor of Arts}
