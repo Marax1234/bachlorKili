@@ -2,7 +2,137 @@
 \addcontentsline{toc}{chapter}{Anhang}
 \label{ch:anhang}
 
-% Platzhalter — Anlagen hier einfügen
+% ========================================
+% NETZPLAN
+% ========================================
+
+\newpage
+\thispagestyle{empty}
+
+% Farben für den Netzplan
+\definecolor{netzPlan}{HTML}{2C3E50}
+\definecolor{netzBar1}{HTML}{5B8FA8}
+\definecolor{netzBar2}{HTML}{E67E22}
+\definecolor{netzBar3}{HTML}{27AE60}
+\definecolor{netzGroup}{HTML}{34495E}
+\definecolor{netzMile}{HTML}{C0392B}
+
+\begin{center}
+{\Large\sffamily\bfseries Netzplan -- Slow Monday Running Club}\\[2pt]
+{\small\sffamily Sommersemester 2026 \quad|\quad KW 19 -- KW 27}
+\end{center}
+
+\vspace{0.15cm}
+
+\noindent
+\resizebox{\textwidth}{!}{%
+\begin{ganttchart}[
+    x unit=2.0cm,
+    y unit title=0.7cm,
+    y unit chart=0.55cm,
+    time slot format=simple,
+    title height=1,
+    title label font=\sffamily\bfseries\footnotesize,
+    title left shift=0,
+    title right shift=0,
+    title/.style={fill=netzPlan, text=white},
+    bar height=0.6,
+    bar/.append style={fill=netzBar1, draw=netzBar1!80!black},
+    bar label font=\sffamily\scriptsize,
+    bar label node/.append style={anchor=east, xshift=-14pt},
+    group/.append style={fill=netzGroup!70, draw=netzGroup},
+    group label font=\sffamily\scriptsize\bfseries,
+    group label node/.append style={anchor=east, xshift=-14pt},
+    milestone label node/.append style={anchor=east, xshift=-14pt},
+    group height=0.4,
+    group top shift=0.3,
+    milestone/.append style={fill=netzMile, draw=netzMile!70!black, shape=diamond, inner sep=1.8pt},
+    milestone label font=\sffamily\scriptsize,
+    milestone height=0.5,
+    link/.style={-latex, thin, black!50},
+    vgrid={*1{draw=black!8}},
+    hgrid={*1{draw=black!6}},
+    canvas/.append style={draw=black!30}
+]{1}{9}
+
+\gantttitle{Kalenderwoche}{9} \\
+\gantttitle{19}{1}
+\gantttitle{20}{1}
+\gantttitle{21}{1}
+\gantttitle{22}{1}
+\gantttitle{23}{1}
+\gantttitle{24}{1}
+\gantttitle{25}{1}
+\gantttitle{26}{1}
+\gantttitle{27}{1} \\
+
+% Gruppe: Planung & Vorbereitung
+\ganttgroup{Planung}{1}{5} \\
+\ganttbar[bar/.append style={fill=netzBar1, draw=netzBar1!80!black}]{Projektstart}{1}{1} \\
+\ganttbar[bar/.append style={fill=netzBar1, draw=netzBar1!80!black}]{PM-Tools}{2}{3} \\
+\ganttbar[bar/.append style={fill=netzBar1, draw=netzBar1!80!black}]{Kooperation Caf\'{e}}{4}{5} \\
+\ganttbar[bar/.append style={fill=netzBar1, draw=netzBar1!80!black}]{Routenplanung}{4}{5} \\
+\ganttbar[bar/.append style={fill=netzBar1, draw=netzBar1!80!black}]{\"{O}ffentlichkeitsarbeit}{4}{5} \\
+
+% Gruppe: Durchführung
+\ganttgroup{Durchf\"{u}hrung}{6}{8} \\
+\ganttbar[bar/.append style={fill=netzBar2, draw=netzBar2!80!black}]{Lauf 1 -- 08.06.}{6}{6} \\
+\ganttbar[bar/.append style={fill=netzBar2, draw=netzBar2!80!black}]{Lauf 2 -- 15.06.}{7}{7} \\
+\ganttbar[bar/.append style={fill=netzBar2, draw=netzBar2!80!black}]{Lauf 3 -- 22.06.}{8}{8} \\
+
+% Gruppe: Nachbereitung
+\ganttgroup{Nachbereitung}{8}{9} \\
+\ganttbar[bar/.append style={fill=netzBar3, draw=netzBar3!80!black}]{Reflexionsbericht}{8}{9} \\
+\ganttbar[bar/.append style={fill=netzBar3, draw=netzBar3!80!black}]{Kolloquium}{9}{9} \\
+
+% Meilensteine
+\ganttmilestone{Quality Gate}{6} \\
+\ganttmilestone{Abgabe}{9}
+
+% Verbindungen (elem0=Grp Planung, 1=Projektstart, 2=PM-Tools, 3=Koop Cafe,
+%   4=Routenplanung, 5=OEffentlichkeitsarbeit, 6=Grp Durchfuehrung,
+%   7=Lauf1, 8=Lauf2, 9=Lauf3, 10=Grp Nachbereitung,
+%   11=Reflexionsbericht, 12=Kolloquium, 13=Quality Gate, 14=Abgabe)
+%
+% Regeln: keine Pfeile zwischen Phasen, keine Pfeile zu Meilensteinen,
+% keine Pfeile zwischen gleichzeitig laufenden Bl\"ocken.
+%
+% Projektstart l\"ost das Werkzeug-Setup aus
+\ganttlink{elem1}{elem2}
+% PM-Tools verzweigt in die drei parallelen Vorbereitungsstr\"ange
+% (untereinander parallel -> keine Pfeile zwischen 3, 4, 5)
+\ganttlink{elem2}{elem3}
+\ganttlink{elem2}{elem4}
+\ganttlink{elem2}{elem5}
+% Alle Vorbereitungen m\"unden in den ersten Lauf
+\ganttlink{elem3}{elem7}
+\ganttlink{elem4}{elem7}
+\ganttlink{elem5}{elem7}
+% L\"aufe in chronologischer Folge
+\ganttlink{elem7}{elem8}
+\ganttlink{elem8}{elem9}
+% Lauf 3 und Reflexionsbericht starten gleichzeitig (KW 8) -> kein Pfeil
+% Reflexionsbericht und Kolloquium \"uberlappen (KW 9) -> kein Pfeil
+
+\end{ganttchart}%
+}
+
+\vspace{0.2cm}
+
+% Legende
+\begin{center}
+\sffamily\footnotesize
+\begin{tabular}{@{}l@{\hspace{5pt}}l@{\hspace{14pt}}l@{\hspace{5pt}}l@{\hspace{14pt}}l@{\hspace{5pt}}l@{}}
+\colorbox{netzBar1}{\rule{10pt}{7pt}} & Planung &
+\colorbox{netzBar2}{\rule{10pt}{7pt}} & Durchf\"{u}hrung &
+\colorbox{netzBar3}{\rule{10pt}{7pt}} & Nachbereitung \\[4pt]
+\raisebox{1pt}{\tikz\node[diamond, fill=netzMile, inner sep=1.2pt]{};} & Meilenstein &
+\raisebox{1pt}{\tikz\draw[-latex, thin, black!50](0,0)--(0.4,0);} & Abh\"{a}ngigkeit &
+\colorbox{netzGroup!70}{\rule{10pt}{7pt}} & Phase \\
+\end{tabular}
+\end{center}
+
+% Platzhalter — weitere Anlagen hier einfügen
 % Beispiel:
 % \section{Interview-Leitfaden}
 % \section{Transkripte}
